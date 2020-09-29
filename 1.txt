@@ -1,0 +1,65 @@
+1.Хостинг
+2.База даних
+klukva
+2020ragroupZ
+3.База даних/керувати- відкривається платформа для керування базою даних
+ - створити таблицю
+   Добавити id AI - поставити галочку
+   Добавити інші поля і зберегти
+4. Клікнути на users в лівій колонці
+5. Вкладка вставити - тут вписуэмо тестових користувачів
+6.Переглянути - можна подивитись користувачі
+7. npm init -y
+8. npm install --save mysql2
+9. вставляэмо  metanit
+
+const mysql = require("mysql2");
+  
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "usersdb",
+  password: "пароль_от_сервера"
+});
+
+і прописуємо дані в обєкт
+
+10. Копіюємо metanit
+
+ connection.connect(function(err){
+    if (err) {
+      return console.error("Ошибка: " + err.message);
+    }
+    else{
+      console.log("Подключение к серверу MySQL успешно установлено");
+    }
+ });
+
+11. Копіюємо metanit (закриття)
+
+connection.end(function(err) {
+  if (err) {
+    return console.log("Ошибка: " + err.message);
+  }
+  console.log("Подключение закрыто");
+});
+
+12. Замість end вставляємо
+
+connection.query("SELECT * FROM users",
+  function(err, results, fields) {
+    console.log(err);
+    console.log(results); // собственно данные
+    console.log(fields); // мета-данные полей 
+});
+connection.end();
+
+13. Запис в базу даних
+
+const user = ["Tom", 29];
+const sql = "INSERT INTO users(name, age) VALUES(?, ?)";
+ 
+connection.query(sql, user, function(err, results) {
+    if(err) console.log(err);
+    else console.log("Данные добавлены");
+});
